@@ -1,2 +1,2 @@
 # Appnoteeasy
-App note easy แบบทดสอบสำหรับสหกิจ
+App note easy แบบทดสอบสำหรับสหกิจออกแบบ Database/API
