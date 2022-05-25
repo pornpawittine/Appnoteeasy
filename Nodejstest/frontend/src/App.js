@@ -44,20 +44,38 @@ const addCustomer = () => {
   })
 }
 
+/* login test */
+const login = () => {
+  Axios.post('http://localhost:3000/api/login' , {
+    email: email,
+    password: password
+  }).then(() => {
+    setCustomerlist([
+      ...customerList,
+      {
+        email: email,
+        password: password
+      }
+    ])
+  })
+}
+
 /* update ยังมีบัคอยู่เมื่อกดต้อง รีใหม่ ข้อมูลถึงจะแสดงการ update ล่าสุด*/
 
 const updateNote = (id_note) => {
-  Axios.put("http://localhost:3000/api/update/note" , {note_text: newnote_text , id_note : id_note}).then((response) => {
+  Axios.patch("http://localhost:3000/api/update/note" , {note_text: newnote_text , id_note : id_note}).then((response) => {
     setCustomerlist(
       customerList.map((val) => {
         return val.id_note == id_note ? {
           id_note: val.id_note,
+          first_name: val.first_name,
+          last_name: val.last_name,
+          email: val.email,
           title: val.title,
           note_text: val.note_text,
           created_time: val.created_time,
-          id_category_note: val.id_category_note,
-          id_history_note: val.id_history_note,
-          id_customer: val.id_customer
+          category_type: val.category_type,
+          annotation: val.annotation
         } : val;
       })
     )
@@ -72,6 +90,7 @@ const updateNote = (id_note) => {
     <div className="App container p-3 mb-2 bg-secondary text-dark">
       <h1>Database Note_Easy</h1>
       <div className = "information">
+        <h3>Register</h3>
         <form action = "">
           <div className ="mb-3">
             <label htmlFor = "first_name" className = "form-label">
@@ -147,6 +166,44 @@ const updateNote = (id_note) => {
             Create Customer
             </button>
         </form>     
+      </div>
+      <hr/>
+      <div className='reg'>
+        <h3>Login</h3>
+        <form action="">
+        <div className ="mb-3">
+            <label htmlFor = "email" className = "form-label">
+              Email:
+            </label>
+            <input 
+            type = "text" 
+            className = "form-control" 
+            placeholder = "Enter email"
+            onChange = {(Event) => {
+              setemail(Event.target.value)
+            }}>         
+            </input>
+
+          </div>
+          <div className ="mb-3">
+            <label htmlFor = "password" className = "form-label">
+              Password:
+            </label>
+            <input 
+            type = "text" 
+            className = "form-control" 
+            placeholder = "Enter password"
+            onChange = {(Event) => {
+              setpassword(Event.target.value)
+            }}>
+            </input>
+
+          </div>
+          <button className = "btn btn-success" onClick = {login}>
+            Login
+            </button>
+
+        </form>
       </div>
       <hr/>
       <div className = "customer">
