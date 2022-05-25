@@ -514,7 +514,11 @@ app.post("/api/login", async (req,res) => {
                     return res.status(404).send({message : "LOGIN ERROR TRY AGAIN"});
                 }
                 
+                
                 return res.status(200).json({message: "login success "});
+                
+                //no res.render("/");
+                //pass res.redirect("/")
             })
     
         } catch(err){
@@ -529,7 +533,7 @@ app.post("/api/login", async (req,res) => {
 })
 
 /* update note ในหน้า React */
-app.put("/api/update/note" , async (req , res) => {
+app.patch("/api/update/note" , async (req , res) => {
     const id_note = req.body.id_note;
     const note_text = req.body.note_text;
 
