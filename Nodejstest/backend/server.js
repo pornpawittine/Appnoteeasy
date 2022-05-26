@@ -2,11 +2,16 @@ const express = require('express');
 const res = require('express/lib/response');
 const mysql = require('mysql2');
 const cors = require('cors');
+const path = require('path');
+
+
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+
 
 
 /* My Sql Connection */
@@ -27,6 +32,9 @@ connection.connect((err) => {
     }
     console.log('MYSQL success connect!');
 })
+
+
+
 
 
 /* ทำ CRUD ทั้ง 4 Table โดยจะทดสอบ ผ่านตัว Thunder Client ใน vs code */
@@ -514,9 +522,16 @@ app.post("/api/login", async (req,res) => {
                     return res.status(404).send({message : "LOGIN ERROR TRY AGAIN"});
                 }
                 
+                if(results[0].email === email && results[0].password === password) {
+                    
+                    return res.status(200).json({message: "login success yup "});
+                }
                 
-                return res.status(200).json({message: "login success "});
-                
+                else {
+                    return res.status(404).json({message: "login Error "});
+                }
+
+                //return res.status(200).json({message: "login success "});          
                 //no res.render("/");
                 //pass res.redirect("/")
             })
